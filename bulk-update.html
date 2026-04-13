@@ -307,7 +307,9 @@
                 <span id="counter" class="slug-count">0 SLUGS READY</span>
             </div>
             <div class="slugs-container">
-                <textarea id="slug-input" class="slugs-textarea" placeholder="Paste your slugs here or use the generator above..." oninput="updateCounter()"></textarea>
+                <textarea id="slug-input" class="slugs-textarea" 
+                    placeholder="Parameter Rules for Slugs:&#10;• Use letters (a-z), numbers (0-9), hyphens (-), and underscores (_)&#10;• Keep slugs unique and under 100 characters&#10;• Spaces are allowed but will be auto-converted to dashes&#10;• Example: summer-campaign_2024&#10;&#10;Enter one slug per line..." 
+                    oninput="updateCounter()"></textarea>
             </div>
 
             <div class="info-card">
