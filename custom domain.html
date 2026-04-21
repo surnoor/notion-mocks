@@ -60,7 +60,8 @@
                 </div>
                 <span id="stepLabel"
                     class="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded-lg uppercase tracking-wider">Step
-                    1 of 5</span>
+                    1 of 4</span>
+
 
             </div>
 
@@ -78,11 +79,8 @@
                     <div id="bar-3" class="h-full bg-black w-0 transition-all duration-500"></div>
                 </div>
                 <div id="dot-4" class="progress-dot w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
-                <div class="flex-1 h-[2px] bg-gray-100 rounded-full">
-                    <div id="bar-4" class="h-full bg-black w-0 transition-all duration-500"></div>
-                </div>
-                <div id="dot-5" class="progress-dot w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
             </div>
+
 
         </div>
 
@@ -198,58 +196,16 @@
 
 
 
-                    <div id="domainSuccessView" class="hidden">
-                        <div class="px-5 py-4 rounded-xl border border-green-100 bg-green-50 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="p-2 bg-green-200 rounded-full text-green-700">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold text-green-900">Domain Available!</p>
-                                    <p class="text-xs text-green-700">Click next to continue with DNS setup.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="domainSuccessView" class="hidden"></div>
                 </div>
 
 
-                <!-- STEP 3: LINK ASSIGNMENT -->
+
+                <!-- STEP 3: DNS SETTINGS -->
                 <div id="step-3" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Link to existing deep link</h2>
-                    <p class="text-gray-600 mb-8 font-medium leading-relaxed">Choose an existing deep link to automatically redirect your new domain to. You can also skip this for now.</p>
-                    
-                    <div class="space-y-6">
-                        <div class="relative group">
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2 px-1">Select Redirect Target</label>
-                            <select class="w-full px-4 py-3.5 bg-white border border-gray-200 rounded-xl focus:border-black outline-none transition-all text-gray-900 font-medium appearance-none cursor-pointer hover:bg-gray-50/50">
-                                <option value="" disabled selected>Choose a link...</option>
-                                <option value="1">Summer Campaign 2026</option>
-                                <option value="2">Main Portfolio Page</option>
-                                <option value="3">Brand HQ Redirect</option>
-                                <option value="4">Mobile App Download Page</option>
-                                <option value="none">Create new empty landing page</option>
-                            </select>
-                            <div class="absolute right-4 bottom-[15px] pointer-events-none text-gray-400">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-
-                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-start gap-3">
-                            <div class="p-1 bg-white rounded border border-gray-200 text-gray-400 mt-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <p class="text-xs text-gray-600 leading-relaxed">
-                                <span class="font-bold text-gray-900">Optional:</span> If you don't link it now, your domain will show a default placeholder page until you assign it.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 4: DNS SETTINGS -->
-                <div id="step-4" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">Update DNS Settings</h2>
                     <p class="text-gray-600 mb-6 font-medium leading-relaxed">Log in to your domain provider (GoDaddy, Namecheap, etc.) and add these records.</p>
+
 
                     <div class="border border-gray-200 rounded-lg overflow-hidden bg-white mb-6">
                         <div class="grid grid-cols-12 px-4 py-2 border-b border-gray-100 bg-gray-50/50">
@@ -278,8 +234,9 @@
                     </div>
                 </div>
 
-                <!-- STEP 5: VERIFICATION -->
-                <div id="step-5" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <!-- STEP 4: VERIFICATION -->
+                <div id="step-4" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+
 
                     <div class="text-center py-8">
                         <div id="processingIcon" class="spinner mx-auto mb-8 shadow-xl"></div>
@@ -350,10 +307,9 @@
                     document.getElementById('txtPath').innerText = `_vercel.${input}`;
                     nextBtn.innerText = "Verify & Claim";
                 } else {
-                    initialView.classList.add('hidden');
-                    successView.classList.remove('hidden');
-                    nextBtn.innerText = "Next: Assign Link";
+                    changeStep(1);
                 }
+
 
             }, 1200);
         }
@@ -361,13 +317,14 @@
 
 
         let currentStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 4;
 
         function changeStep(delta) {
-            if (currentStep === 4 && delta === 1) {
+            if (currentStep === 3 && delta === 1) {
                 startVerification();
                 return;
             }
+
 
             if (currentStep === 2 && delta === 1) {
                 const initialView = document.getElementById('domainEntryInitial');
@@ -378,24 +335,15 @@
             }
 
             if (currentStep === 2 && delta === -1) {
-
                 const claimView = document.getElementById('claimOwnershipView');
-                const successView = document.getElementById('domainSuccessView');
                 const initialView = document.getElementById('domainEntryInitial');
                 
-                if (!claimView.classList.contains('hidden') || !successView.classList.contains('hidden')) {
+                if (!claimView.classList.contains('hidden')) {
                     claimView.classList.add('hidden');
-                    successView.classList.add('hidden');
                     initialView.classList.remove('hidden');
-                    document.getElementById('nextBtn').classList.add('hidden');
+                    document.getElementById('nextBtn').innerText = "Continue";
                     return;
                 }
-            }
-
-            if (currentStep === 3 && delta === 1) {
-
-                startVerification();
-                return;
             }
 
             document.getElementById(`step-${currentStep}`).classList.remove('active');
@@ -411,35 +359,32 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
-            prevBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 5);
-            nextBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 5);
+            prevBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 4);
+            nextBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 4);
 
             if (currentStep === 2) {
                 const initialView = document.getElementById('domainEntryInitial');
                 const claimView = document.getElementById('claimOwnershipView');
-                const successView = document.getElementById('domainSuccessView');
 
                 if (!initialView.classList.contains('hidden')) {
                     nextBtn.innerText = "Continue";
                     nextBtn.classList.remove('hidden');
                 } else if (!claimView.classList.contains('hidden')) {
                     nextBtn.innerText = "Verify & Claim";
-                } else if (!successView.classList.contains('hidden')) {
-                    nextBtn.innerText = "Next: Assign Link";
                 }
             } else if (currentStep === 3) {
-                nextBtn.innerText = "Assign & Next: DNS Setup";
-            } else if (currentStep === 4) {
                 nextBtn.innerText = "Verify Connection";
             }
 
+
             // Small aesthetic adjustment for the last step
-            if (currentStep === 5) {
+            if (currentStep === 4) {
                 document.getElementById('stepLabel').classList.replace('bg-blue-50', 'bg-green-50');
                 document.getElementById('stepLabel').classList.replace('text-blue-600', 'text-green-600');
             } else {
                 document.getElementById('stepLabel').classList.add('bg-blue-50', 'text-blue-600');
             }
+
 
 
             updateProgress();
@@ -456,13 +401,14 @@
         }
 
         function startVerification() {
-            currentStep = 5;
-            document.getElementById(`step-4`).classList.remove('active');
-            document.getElementById(`step-5`).classList.add('active');
+            currentStep = 4;
+            document.getElementById(`step-3`).classList.remove('active');
+            document.getElementById(`step-4`).classList.add('active');
 
             document.getElementById('footerActions').classList.add('hidden');
             document.getElementById('progressHeader').style.opacity = '0.5';
             updateUI();
+
 
 
             setTimeout(() => {
