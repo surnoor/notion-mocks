@@ -608,7 +608,9 @@
         }
 
         function updateUI() {
-            document.getElementById('stepLabel').innerText = `Step ${currentStep} of 4`;
+            const displayTotal = userPath === 'need' ? 2 : 4;
+            document.getElementById('stepLabel').innerText = `Step ${currentStep} of ${displayTotal}`;
+
 
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
@@ -659,14 +661,34 @@
         }
 
         function updateProgress() {
-            for (let i = 1; i <= totalSteps; i++) {
+            const isNeed = userPath === 'need';
+            const displayTotal = isNeed ? 2 : 4;
+
+            // Handle dots and connecting bars
+            for (let i = 1; i <= 4; i++) {
                 const dot = document.getElementById(`dot-${i}`);
-                const bar = document.getElementById(`bar-${i - 1}`);
+                const bar = document.getElementById(`bar-${i}`); // There are 3 bars (1, 2, 3)
+
+                if (i > displayTotal) {
+                    dot.classList.add('hidden');
+                } else {
+                    dot.classList.remove('hidden');
+                }
+
+                if (bar) {
+                    if (i >= displayTotal) {
+                        bar.parentElement.classList.add('hidden');
+                    } else {
+                        bar.parentElement.classList.remove('hidden');
+                    }
+                    bar.style.width = i < currentStep ? '100.5%' : '0%';
+                }
+
                 if (i <= currentStep) dot.classList.add('active');
                 else dot.classList.remove('active');
-                if (bar) bar.style.width = i <= currentStep ? '100%' : '0%';
             }
         }
+
 
         function startVerification() {
             currentStep = 4;
