@@ -280,8 +280,8 @@
         }
 
         function checkAvailability() {
-            const input = document.getElementById('domainInput').value;
-            if (!input) return;
+            const input = document.getElementById('domainInput').value || 'example.com';
+
 
             const nextBtn = document.getElementById('nextBtn');
             const originalText = nextBtn.innerText;
@@ -307,11 +307,11 @@
                     document.getElementById('txtPath').innerText = `_vercel.${input}`;
                     nextBtn.innerText = "Verify & Claim";
                 } else {
+                    initialView.classList.add('hidden');
                     changeStep(1);
                 }
+            }, 500);
 
-
-            }, 1200);
         }
 
 
