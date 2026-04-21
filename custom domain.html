@@ -35,15 +35,35 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-            100% {
-                transform: rotate(360deg);
-            }
+        .status-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 200px;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
         }
     </style>
+
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans">
@@ -239,28 +259,88 @@
                 </div>
 
 
-                <!-- STEP 4: VERIFICATION -->
+                <!-- STEP 4: MONITORING & STATUS -->
                 <div id="step-4" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div id="statusProcessing">
+                        <div class="text-center py-6">
+                            <div class="relative w-24 h-24 mx-auto mb-8">
+                                <div class="absolute inset-0 bg-gray-100 rounded-full status-pulse"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-12 h-12 border-4 border-gray-200 border-t-black rounded-full animate-spin"></div>
+                                </div>
+                            </div>
+                            <h3 class="text-2xl font-black text-gray-900 tracking-tight mb-2">Propagation in Progress</h3>
+                            <p class="text-gray-500 font-medium leading-relaxed">We're monitoring your DNS records for updates. You can safely close this window.</p>
+                        </div>
 
-
-                    <div class="text-center py-8">
-                        <div id="processingIcon" class="spinner mx-auto mb-8 shadow-xl"></div>
-                        <h3 id="processingStatus" class="text-2xl font-black text-gray-900 tracking-tight">Checking
-                            records...</h3>
-                        <p id="processingMessage" class="text-base text-gray-500 mt-3 max-w-xs mx-auto leading-relaxed">
-                            We are scanning the internet to see if your DNS changes have propagated.</p>
-
-                        <div
-                            class="mt-8 inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            <span class="relative flex h-2 w-2">
-                                <span
-                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                            </span>
-                            Propagating Global DNS
+                        <div class="mt-8 space-y-3">
+                            <div class="p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                                    <span class="text-gray-600 font-medium tracking-tight">Detecting Nameservers</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-400 uppercase">Searching...</span>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+                                    <span class="text-gray-400 font-medium tracking-tight">Validating SSL Certificate</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-300 uppercase">Waiting</span>
+                            </div>
                         </div>
                     </div>
+
+                    <div id="statusSuccess" class="hidden">
+                        <div class="text-center py-6">
+                            <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8 text-green-600">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-black text-gray-900 tracking-tight mb-2">Domain Verified & Active</h3>
+                            <p class="text-gray-500 font-medium">Your custom links are now live on your domain.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl border border-gray-100 p-4 space-y-2 text-sm mt-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Verified At</span>
+                                <span class="text-gray-900 font-bold" id="verifyTime">10:24 AM Today</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">SSL Status</span>
+                                <span class="text-green-600 font-bold flex items-center gap-1">Secured <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.946-2.397 9.265-6 11.279-3.603-2.014-6-6.333-6-11.279 0-.68.056-1.35.166-2.001zm11.548 4.708a1 1 0 10-1.428-1.393L9.31 11.26a1 1 0 01-1.272.1l-1.334-1a1 1 0 00-1.208 1.592l1.333 1a3 3 0 003.817-.3l2.878-2.952z" clip-rule="evenodd" /></svg></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ ACCORDION -->
+                    <div class="mt-10 pt-8 border-t border-gray-100">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 font-black">Troubleshooting & Info</h4>
+                        <div class="space-y-2">
+                            <div class="accordion-item border border-gray-100 rounded-lg overflow-hidden">
+                                <button onclick="toggleAccordion(this)" class="w-full px-4 py-3 flex items-center justify-between text-left bg-white hover:bg-gray-50 transition-colors">
+                                    <span class="text-[13px] font-bold text-gray-700">How long will this take?</span>
+                                    <svg class="w-4 h-4 text-gray-400 accordion-icon transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <div class="accordion-content bg-gray-50/50">
+                                    <p class="px-4 py-3 text-[13px] text-gray-500 leading-relaxed">DNS propagation can take anywhere from a few minutes to 48 hours depending on your provider. We'll check every 15 minutes automatically.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item border border-gray-100 rounded-lg overflow-hidden">
+                                <button onclick="toggleAccordion(this)" class="w-full px-4 py-3 flex items-center justify-between text-left bg-white hover:bg-gray-50 transition-colors">
+                                    <span class="text-[13px] font-bold text-gray-700">Why is my domain still pending?</span>
+                                    <svg class="w-4 h-4 text-gray-400 accordion-icon transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                <div class="accordion-content bg-gray-50/50">
+                                    <p class="px-4 py-3 text-[13px] text-gray-500 leading-relaxed">Ensure your records exactly match the Step 3 values. It can take some time for the changes to reach our servers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex justify-center">
+                        <button onclick="mockSuccess()" class="text-[10px] font-bold text-gray-300 hover:text-green-500 uppercase tracking-widest transition-colors font-black">Demo: Toggle Success State</button>
+                    </div>
                 </div>
+
             </div>
         </div>
 
@@ -277,7 +357,55 @@
                 Next: DNS Setup
             </button>
         </div>
+        </div>
     </div>
+
+    <!-- DASHBOARD PREVIEW SECTION -->
+    <div class="max-w-4xl mx-auto mt-20 mb-32 p-8 bg-white border border-gray-200 rounded-[2rem] shadow-sm">
+        <h2 class="text-xl font-black text-gray-900 mb-6 flex items-center gap-2 tracking-tight">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v12a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"></path></svg>
+            Dashboard Status Preview
+        </h2>
+        
+        <div class="overflow-hidden border border-gray-100 rounded-2xl">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    <tr>
+                        <th class="px-6 py-4">Domain</th>
+                        <th class="px-6 py-4">Status</th>
+                        <th class="px-6 py-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-mono text-sm font-bold text-gray-900">links.ssss.com</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2 px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg w-fit text-[11px] font-bold border border-amber-100">
+                                <span class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+                                Propagation Processing
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button onclick="openModal()" class="text-[11px] font-black text-blue-600 hover:underline uppercase tracking-tight">Check Status</button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 transition-colors">
+                        <td class="px-6 py-4 font-mono text-sm font-bold text-gray-900">brand.website.net</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2 px-2.5 py-1 bg-green-50 text-green-700 rounded-lg w-fit text-[11px] font-bold border border-green-100">
+                                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                                Active & Secure
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button class="text-[11px] font-black text-gray-400 hover:text-black uppercase tracking-tight">Manage</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <script>
         function selectPath(type) {
@@ -407,34 +535,42 @@
 
         function startVerification() {
             currentStep = 4;
-            document.getElementById(`step-3`).classList.remove('active');
+            document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
             document.getElementById(`step-4`).classList.add('active');
 
-            document.getElementById('footerActions').classList.add('hidden');
-            document.getElementById('progressHeader').style.opacity = '0.5';
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.innerText = "Finish & Close";
+            nextBtn.onclick = () => location.reload(); 
+            
             updateUI();
-
-
-
-            setTimeout(() => {
-                showSuccess();
-            }, 3000);
         }
 
-        function showSuccess() {
-            const icon = document.getElementById('processingIcon');
-            icon.className = 'w-20 h-20 bg-green-100 text-green-600 rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-xl shadow-green-100 border-4 border-white';
-            icon.innerHTML = `<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m5 13 4 4L19 7"></path></svg>`;
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        }
 
-            document.getElementById('processingStatus').innerText = "Domain Verified!";
-            document.getElementById('processingMessage').innerText = "Your brand domain is now connected and globally reachable.";
+        function mockSuccess() {
+            document.getElementById('statusProcessing').classList.add('hidden');
+            document.getElementById('statusSuccess').classList.remove('hidden');
+            const now = new Date();
+            document.getElementById('verifyTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' Today';
+        }
 
+        function openModal() {
+            currentStep = 4;
+            document.querySelectorAll('.step-content').forEach(s => s.classList.remove('active'));
+            document.getElementById('step-4').classList.add('active');
             document.getElementById('footerActions').classList.remove('hidden');
             const nextBtn = document.getElementById('nextBtn');
-            nextBtn.classList.remove('hidden');
-            nextBtn.innerText = "Launch Dashboard";
-            nextBtn.className = "bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-2xl font-black text-sm shadow-xl shadow-green-100 transition-all hover:translate-y-[-2px]";
+            nextBtn.innerText = "Close Status";
+            nextBtn.onclick = () => location.reload();
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
     </script>
 </body>
 
