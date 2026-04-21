@@ -4,15 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        body { font-family: 'Inter', sans-serif; }
+
         .step-content {
             display: none;
         }
 
         .step-content.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
+
 
         .progress-dot.active {
             background-color: #3b82f6;
@@ -43,9 +49,10 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans">
 
     <div id="modalContainer"
-        class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100">
+        class="bg-white rounded-xl shadow-2xl w-full max-w-xl overflow-hidden border border-gray-200">
 
-        <div class="p-8 border-b border-gray-50 bg-white">
+        <div class="px-8 pt-8 pb-6 bg-white">
+
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h2 class="text-2xl font-black text-gray-900 tracking-tight">Custom Domain Setup</h2>
@@ -56,21 +63,23 @@
                     1 of 4</span>
             </div>
 
-            <div id="progressHeader" class="flex items-center space-x-2">
-                <div id="dot-1" class="progress-dot active w-2.5 h-2.5 rounded-full border-2 border-gray-300"></div>
-                <div class="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
-                    <div id="bar-1" class="h-full bg-blue-500 w-0 transition-all duration-500 ease-out"></div>
+            <div id="progressHeader" class="flex items-center space-x-2 mt-4">
+                <div id="dot-1" class="progress-dot active w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
+                <div class="flex-1 h-[2px] bg-gray-100 rounded-full">
+                    <div id="bar-1" class="h-full bg-black w-0 transition-all duration-500"></div>
                 </div>
-                <div id="dot-2" class="progress-dot w-2.5 h-2.5 rounded-full border-2 border-gray-300"></div>
-                <div class="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
-                    <div id="bar-2" class="h-full bg-blue-500 w-0 transition-all duration-500 ease-out"></div>
+                <div id="dot-2" class="progress-dot w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
+                <div class="flex-1 h-[2px] bg-gray-100 rounded-full">
+                    <div id="bar-2" class="h-full bg-black w-0 transition-all duration-500"></div>
                 </div>
-                <div id="dot-3" class="progress-dot w-2.5 h-2.5 rounded-full border-2 border-gray-300"></div>
-                <div class="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
-                    <div id="bar-3" class="h-full bg-blue-500 w-0 transition-all duration-500 ease-out"></div>
+                <div id="dot-3" class="progress-dot w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
+                <div class="flex-1 h-[2px] bg-gray-100 rounded-full">
+                    <div id="bar-3" class="h-full bg-black w-0 transition-all duration-500"></div>
                 </div>
-                <div id="dot-4" class="progress-dot w-2.5 h-2.5 rounded-full border-2 border-gray-300"></div>
+                <div id="dot-4" class="progress-dot w-2 h-2 rounded-full border border-gray-200 bg-gray-200"></div>
             </div>
+        </div>
+
         </div>
 
         <div class="p-8">
@@ -122,83 +131,86 @@
                     </div>
                 </div>
 
-                <!-- STEP 2: DOMAIN ENTRY -->
+                <!-- STEP 2: DOMAIN ENTRY / CLAIM OWNERSHIP -->
                 <div id="step-2" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide uppercase">Enter Custom
-                        Domain</label>
-                    <div class="relative mb-6 group">
-                        <input type="text" id="domainInput" placeholder="links.mybrand.com"
-                            class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all pr-24 text-lg font-medium">
-                        <button onclick="checkAvailability()"
-                            class="absolute right-2 top-2 bottom-2 px-4 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 hover:scale-[0.98] active:scale-[0.95] transition-all flex items-center gap-2 shadow-lg shadow-blue-200">
-                            <span id="checkBtnText">Check</span>
-                            <div id="checkSpinner"
-                                class="hidden w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin">
-                            </div>
-                        </button>
-                    </div>
+                    <div id="domainEntryInitial">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Enter your domain</h2>
+                        <p class="text-gray-600 mb-6 font-medium">Enter the domain you'd like to use for your brand links.</p>
+                        
+                        <div class="relative mb-6">
+                            <input type="text" id="domainInput" placeholder="example.com"
+                                class="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-black outline-none transition-all text-lg font-medium">
+                            <button onclick="checkAvailability()"
+                                class="mt-4 w-full py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all flex items-center justify-center gap-2">
+                                <span id="checkBtnText">Check Domain</span>
+                                <div id="checkSpinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            </button>
+                        </div>
 
-                    <div id="availabilityDropdown" class="hidden overflow-hidden mb-6 transition-all duration-300">
-                        <div id="resultContent" class="p-5 rounded-2xl border-2 transition-all duration-300 shadow-sm">
-                            <!-- Content injected via JS -->
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                <span class="font-bold text-gray-900">Pro Tip:</span> Use a subdomain (like <b>links.</b>yoursite.com) to keep your main site unchanged.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-amber-50/50 border border-amber-100 p-4 rounded-2xl flex gap-3">
-                            <svg class="h-5 w-5 text-amber-500 shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                                    clip-rule="evenodd" />
+                    <div id="claimOwnershipView" class="hidden">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">Claim Domain Ownership</h2>
+                        <p class="text-gray-600 mb-6 font-medium">This domain is registered with another SkyViewLinks account. Verify DNS ownership to claim it.</p>
+                        
+                        <p class="text-sm text-gray-600 mb-4">
+                            Add the following TXT record to your DNS configuration for <code id="displayDomain" class="bg-gray-100 px-1 rounded font-mono text-gray-900">ssss.com</code>, then click "Verify & Claim" to complete the ownership transfer.
+                        </p>
+
+                        <div class="bg-[#FFF9E6] border border-[#FFEFB3] p-4 rounded-lg flex gap-3 mb-6">
+                            <svg class="h-5 w-5 text-[#856404] shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                             </svg>
-                            <p class="text-xs text-amber-900 leading-relaxed"><b>Pro Tip:</b> Use a subdomain (like
-                                <b>links.</b>yoursite.com) to keep your main site unchanged.
+                            <p class="text-[13px] text-[#856404] leading-relaxed">
+                                This domain is linked to another SkyViewLinks account. To use it with this project, add a TXT record at <code class="font-mono font-bold" id="txtPath">_skyview.ssss.com</code> to verify ownership. You can remove the record after verification is complete. <a href="#" class="inline-flex items-center gap-0.5 font-semibold underline">Learn more <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
                             </p>
                         </div>
 
-                        <div
-                            class="bg-blue-50/50 border border-blue-100 p-4 rounded-2xl group cursor-help transition-all hover:bg-white">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                                <p class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Guide</p>
+                        <div class="border border-gray-200 rounded-lg overflow-hidden bg-white mb-6">
+                            <div class="grid grid-cols-12 px-4 py-2 border-b border-gray-100 bg-gray-50/50">
+                                <div class="col-span-2 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Type</div>
+                                <div class="col-span-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Name</div>
+                                <div class="col-span-6 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Value</div>
                             </div>
-                            <p class="text-xs text-blue-900 leading-relaxed">Enter the exact address where you want your
-                                brand links to live.</p>
+                            <div class="grid grid-cols-12 px-4 py-3 items-center text-sm">
+                                <div class="col-span-2 font-mono text-gray-900">TXT</div>
+                                <div class="col-span-4 flex items-center gap-2">
+                                    <span class="font-mono text-gray-900">_skyview</span>
+                                    <button class="text-gray-400 hover:text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
+                                </div>
+                                <div class="col-span-6 flex items-center justify-between gap-2 overflow-hidden">
+                                    <span class="font-mono text-gray-900 truncate">sv-domain-verify=7s8a...</span>
+                                    <button class="text-gray-400 hover:text-gray-600 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 border border-gray-200 rounded-lg flex items-center justify-between text-xs text-gray-500">
+                            <span>It might take some time for the DNS records to apply.</span>
+                            <a href="#" class="text-blue-600 font-semibold inline-flex items-center gap-0.5">Learn More <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-gray-100">
-                        <p class="text-[10px] uppercase font-black text-gray-400 tracking-[0.2em] mb-4">No domain yet?
-                        </p>
-                        <div class="grid grid-cols-2 gap-4">
-                            <a href="https://www.namecheap.com/" target="_blank"
-                                class="flex flex-col p-4 bg-white border-2 border-gray-100 rounded-2xl hover:border-blue-500 hover:shadow-md transition-all group">
-                                <span
-                                    class="text-[10px] font-black text-blue-500 uppercase tracking-wider mb-1">Marketplace</span>
-                                <span
-                                    class="text-sm font-bold text-gray-900 flex items-center justify-between">Namecheap<svg
-                                        class="w-4 h-4 text-gray-300 group-hover:text-blue-500" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                        </path>
-                                    </svg></span>
-                            </a>
-                            <button
-                                onclick="window.open('https://www.youtube.com/results?search_query=how+to+buy+a+domain+name', '_blank')"
-                                class="flex flex-col p-4 bg-white border-2 border-gray-100 rounded-2xl hover:border-red-500 hover:shadow-md transition-all group text-left">
-                                <span class="text-[10px] font-black text-red-500 uppercase tracking-wider mb-1">Watch
-                                    Guide</span>
-                                <span class="text-sm font-bold text-gray-900 flex items-center justify-between">Video
-                                    Tutorial<svg class="w-4 h-4 text-gray-300 group-hover:text-red-500"
-                                        fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                                    </svg></span>
-                            </button>
+                    <div id="domainSuccessView" class="hidden">
+                        <div class="px-5 py-4 rounded-xl border border-green-100 bg-green-50 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-green-200 rounded-full text-green-700">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-green-900">Domain Available!</p>
+                                    <p class="text-xs text-green-700">Click next to continue with DNS setup.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- STEP 3: DNS SETTINGS -->
                 <div id="step-3" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -269,19 +281,15 @@
             </div>
         </div>
 
-        <div id="footerActions" class="p-8 bg-gray-50/50 border-t border-gray-100 flex justify-between items-center">
+        <div id="footerActions" class="px-8 py-6 bg-gray-50/50 border-t border-gray-200 flex justify-between items-center">
             <button id="prevBtn"
-                class="px-6 py-3 text-gray-400 hover:text-gray-900 font-bold text-sm transition-all flex items-center gap-2 group hidden"
+                class="px-5 py-2.5 border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all hidden"
                 onclick="changeStep(-1)">
-                <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
                 Back
             </button>
             <div class="flex-1"></div>
             <button id="nextBtn"
-                class="bg-gray-900 hover:bg-black text-white px-10 py-4 rounded-2xl font-black text-sm shadow-xl shadow-gray-200 transition-all hover:translate-y-[-2px] active:translate-y-[0px] hidden"
+                class="bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-bold text-sm transition-all hidden"
                 onclick="changeStep(1)">
                 Next: DNS Setup
             </button>
@@ -299,58 +307,58 @@
 
             const btnText = document.getElementById('checkBtnText');
             const spinner = document.getElementById('checkSpinner');
-            const dropdown = document.getElementById('availabilityDropdown');
-            const content = document.getElementById('resultContent');
+            
+            const initialView = document.getElementById('domainEntryInitial');
+            const claimView = document.getElementById('claimOwnershipView');
+            const successView = document.getElementById('domainSuccessView');
+            const nextBtn = document.getElementById('nextBtn');
 
-            btnText.innerText = 'Checking';
+            btnText.innerText = 'Checking...';
             spinner.classList.remove('hidden');
-            dropdown.classList.add('hidden');
 
             setTimeout(() => {
-                btnText.innerText = 'Check';
+                btnText.innerText = 'Check Domain';
                 spinner.classList.add('hidden');
-                dropdown.classList.remove('hidden');
 
                 const isTaken = input.toLowerCase().includes('google') || input.toLowerCase().includes('taken');
 
                 if (isTaken) {
-                    content.className = 'p-5 rounded-2xl border-2 border-red-100 bg-red-50 flex items-center justify-between animate-in fade-in zoom-in-95 duration-300';
-                    content.innerHTML = `
-                        <div class="flex items-center gap-4">
-                            <div class="p-3 bg-red-200 rounded-2xl text-red-600 shadow-sm">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            </div>
-                            <div>
-                                <p class="text-sm font-black text-red-900">Domain already taken</p>
-                                <p class="text-xs text-red-600 font-medium">Try a different name or extension.</p>
-                            </div>
-                        </div>
-                    `;
+                    initialView.classList.add('hidden');
+                    claimView.classList.remove('hidden');
+                    document.getElementById('displayDomain').innerText = input;
+                    document.getElementById('txtPath').innerText = `_skyview.${input}`;
+                    nextBtn.innerText = "Verify & Claim";
+                    nextBtn.classList.remove('hidden');
                 } else {
-                    const price = (Math.random() * (20 - 5) + 5).toFixed(2);
-                    content.className = 'p-5 rounded-2xl border-2 border-green-100 bg-green-50 flex items-center justify-between animate-in fade-in zoom-in-95 duration-300 shadow-sm';
-                    content.innerHTML = `
-                        <div class="flex flex-col gap-1">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="px-2 py-0.5 bg-green-600 text-white text-[9px] font-black rounded-lg uppercase tracking-widest">Available</span>
-                                <span class="text-xs font-bold text-gray-800 tracking-tight">on GoDaddy</span>
-                            </div>
-                            <p class="text-xs text-green-800 font-medium italic">Perfect Choice! This name is ready.</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-lg font-black text-gray-900 tracking-tight">$${price}<span class="text-[10px] font-bold text-gray-400 tracking-wider">/yr</span></p>
-                            <a href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${input}" target="_blank" class="text-[10px] font-black text-blue-600 hover:text-blue-800 uppercase tracking-widest flex items-center gap-1">Claim Domain <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
-                        </div>
-                    `;
+                    initialView.classList.add('hidden');
+                    successView.classList.remove('hidden');
+                    nextBtn.innerText = "Next: DNS Setup";
+                    nextBtn.classList.remove('hidden');
                 }
             }, 1200);
         }
+
 
         let currentStep = 1;
         const totalSteps = 4;
 
         function changeStep(delta) {
+            if (currentStep === 2 && delta === -1) {
+                const claimView = document.getElementById('claimOwnershipView');
+                const successView = document.getElementById('domainSuccessView');
+                const initialView = document.getElementById('domainEntryInitial');
+                
+                if (!claimView.classList.contains('hidden') || !successView.classList.contains('hidden')) {
+                    claimView.classList.add('hidden');
+                    successView.classList.add('hidden');
+                    initialView.classList.remove('hidden');
+                    document.getElementById('nextBtn').classList.add('hidden');
+                    return;
+                }
+            }
+
             if (currentStep === 3 && delta === 1) {
+
                 startVerification();
                 return;
             }
@@ -371,8 +379,16 @@
             prevBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 4);
             nextBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 4);
 
-            if (currentStep === 2) nextBtn.innerText = "Next: DNS Setup";
+            if (currentStep === 2) {
+                const claimView = document.getElementById('claimOwnershipView');
+                if (claimView && !claimView.classList.contains('hidden')) {
+                    nextBtn.innerText = "Verify & Claim";
+                } else {
+                    nextBtn.innerText = "Next: DNS Setup";
+                }
+            }
             else if (currentStep === 3) nextBtn.innerText = "Verify Connection";
+
 
             // Small aesthetic adjustment for the last step
             if (currentStep === 4) {
