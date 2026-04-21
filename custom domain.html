@@ -39,9 +39,25 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Custom Slim Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+
         .status-pulse {
             animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+
 
         @keyframes pulse-ring {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }
@@ -105,7 +121,9 @@
         </div>
 
         <div class="px-8 pb-8 pt-2">
-            <div id="mainContent" class="min-h-[280px]">
+            <div id="mainContent" class="max-h-[420px] overflow-y-auto custom-scrollbar pr-2">
+                <div class="min-h-[280px]">
+
 
                 <!-- STEP 1: CHOICE SCREEN -->
                 <div id="step-1" class="step-content active animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -223,16 +241,17 @@
 
                 <!-- STEP 3: DNS SETTINGS -->
                 <div id="step-3" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Update DNS Settings</h2>
-                    <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest mb-6">Last checked at 04/20/2026, 09:01:33 PM</p>
-                    <p class="text-gray-600 mb-6 font-medium leading-relaxed">Log in to your domain provider (GoDaddy, Namecheap, etc.) and add these records to complete the ownership transfer.</p>
-
-                    <button class="mb-8 w-full py-4 border-2 border-dashed border-gray-100 rounded-2xl flex items-center justify-center gap-3 group hover:border-blue-500 hover:bg-blue-50/30 transition-all">
-                        <div class="p-2 bg-blue-100 rounded-lg text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z" /></svg>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">Update DNS Settings</h2>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-4">Last checked at 04/20/2026, 09:01:33 PM</p>
+                    <p class="text-[13px] text-gray-600 mb-4 font-medium leading-relaxed">Log in to your domain provider (GoDaddy, Namecheap, etc.) and add these records to complete the ownership transfer.</p>
+ 
+                    <button class="mb-6 w-full py-2.5 border border-dashed border-gray-200 rounded-xl flex items-center justify-center gap-2 group hover:border-blue-500 hover:bg-blue-50/30 transition-all">
+                        <div class="p-1 bg-blue-100 rounded text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.841z" /></svg>
                         </div>
-                        <span class="text-sm font-bold text-gray-900">Watch a quick video tutorial</span>
+                        <span class="text-xs font-bold text-gray-900">Watch video tutorial</span>
                     </button>
+
 
 
 
@@ -394,11 +413,11 @@
                         <button onclick="mockSuccess()" class="text-[10px] font-bold text-gray-300 hover:text-green-500 uppercase tracking-widest transition-colors font-black">Demo: Toggle Success State</button>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div id="footerActions" class="px-8 py-6 bg-gray-50/50 border-t border-gray-200 flex justify-between items-center">
+
             <button id="prevBtn"
                 class="px-5 py-2.5 border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 rounded-lg font-semibold text-sm transition-all hidden"
                 onclick="changeStep(-1)">
