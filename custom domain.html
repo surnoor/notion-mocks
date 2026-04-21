@@ -561,12 +561,14 @@
 
         function changeStep(delta) {
             if (currentStep === 2 && delta === 1 && userPath === 'need') {
-                // Bridge back to path 1
+                // Bridge back to path 1 (Have) but STAY on Step 2
                 userPath = 'have';
-                // Reset step-2 view to initial entry
                 document.getElementById('domainEntryInitial').classList.remove('hidden');
                 document.getElementById('claimOwnershipView').classList.add('hidden');
+                updateUI();
+                return; // Do not increment step
             }
+
 
             if (currentStep === 3 && delta === 1) {
 
