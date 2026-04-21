@@ -80,10 +80,9 @@
             </div>
         </div>
 
-        </div>
+        <div class="px-8 pb-8 pt-2">
+            <div id="mainContent" class="min-h-[280px]">
 
-        <div class="p-8">
-            <div id="mainContent" class="min-h-[320px]">
                 <!-- STEP 1: CHOICE SCREEN -->
                 <div id="step-1" class="step-content active animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <h3 class="text-lg font-bold text-gray-800 mb-6">How would you like to start?</h3>
@@ -156,10 +155,10 @@
 
                     <div id="claimOwnershipView" class="hidden">
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">Claim Domain Ownership</h2>
-                        <p class="text-gray-600 mb-6 font-medium">This domain is registered with another SkyViewLinks account. Verify DNS ownership to claim it.</p>
+                        <p class="text-gray-600 mb-6 font-medium leading-relaxed">This domain is registered with another Vercel account. Verify DNS ownership to claim it.</p>
                         
                         <p class="text-sm text-gray-600 mb-4">
-                            Add the following TXT record to your DNS configuration for <code id="displayDomain" class="bg-gray-100 px-1 rounded font-mono text-gray-900">ssss.com</code>, then click "Verify & Claim" to complete the ownership transfer.
+                            Add the following TXT record to your DNS configuration for <code id="displayDomain" class="bg-gray-100 px-1 rounded font-mono text-gray-900">ssss.net</code>, then click "Verify & Claim" to complete the ownership transfer.
                         </p>
 
                         <div class="bg-[#FFF9E6] border border-[#FFEFB3] p-4 rounded-lg flex gap-3 mb-6">
@@ -167,7 +166,7 @@
                                 <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                             </svg>
                             <p class="text-[13px] text-[#856404] leading-relaxed">
-                                This domain is linked to another SkyViewLinks account. To use it with this project, add a TXT record at <code class="font-mono font-bold" id="txtPath">_skyview.ssss.com</code> to verify ownership. You can remove the record after verification is complete. <a href="#" class="inline-flex items-center gap-0.5 font-semibold underline">Learn more <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
+                                This domain is linked to another Vercel account. To use it with this project, add a TXT record at <code class="font-mono font-bold" id="txtPath">_vercel.ssss.com</code> to verify ownership. You can remove the record after verification is complete. <a href="#" class="inline-flex items-center gap-0.5 font-semibold underline">Learn more <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
                             </p>
                         </div>
 
@@ -178,23 +177,23 @@
                                 <div class="col-span-6 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Value</div>
                             </div>
                             <div class="grid grid-cols-12 px-4 py-3 items-center text-sm">
-                                <div class="col-span-2 font-mono text-gray-900">TXT</div>
-                                <div class="col-span-4 flex items-center gap-2">
-                                    <span class="font-mono text-gray-900">_skyview</span>
+                                <div class="col-span-2 font-mono text-gray-900 border-r border-gray-100 last:border-0 h-full flex items-center">TXT</div>
+                                <div class="col-span-4 flex items-center justify-between px-2 gap-2 border-r border-gray-100 h-full">
+                                    <span class="font-mono text-gray-900">_vercel</span>
                                     <button class="text-gray-400 hover:text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
                                 </div>
-                                <div class="col-span-6 flex items-center justify-between gap-2 overflow-hidden">
-                                    <span class="font-mono text-gray-900 truncate">sv-domain-verify=7s8a...</span>
+                                <div class="col-span-6 flex items-center justify-between pl-2 h-full">
+                                    <span class="font-mono text-gray-900 truncate">vc-domain-verify=sss...</span>
                                     <button class="text-gray-400 hover:text-gray-600 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-3 border border-gray-200 rounded-lg flex items-center justify-between text-xs text-gray-500">
-                            <span>It might take some time for the DNS records to apply.</span>
-                            <a href="#" class="text-blue-600 font-semibold inline-flex items-center gap-0.5">Learn More <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
+                        <div class="p-3 border border-gray-200 rounded-lg flex items-center justify-between text-[13px] text-gray-600">
+                            <span>It might take some time for the DNS records to apply. <a href="#" class="text-blue-600 font-semibold inline-flex items-center gap-0.5 ml-1">Learn More <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a></span>
                         </div>
                     </div>
+
 
                     <div id="domainSuccessView" class="hidden">
                         <div class="px-5 py-4 rounded-xl border border-green-100 bg-green-50 flex items-center justify-between">
@@ -326,10 +325,11 @@
                     initialView.classList.add('hidden');
                     claimView.classList.remove('hidden');
                     document.getElementById('displayDomain').innerText = input;
-                    document.getElementById('txtPath').innerText = `_skyview.${input}`;
+                    document.getElementById('txtPath').innerText = `_vercel.${input}`;
                     nextBtn.innerText = "Verify & Claim";
                     nextBtn.classList.remove('hidden');
                 } else {
+
                     initialView.classList.add('hidden');
                     successView.classList.remove('hidden');
                     nextBtn.innerText = "Next: DNS Setup";
