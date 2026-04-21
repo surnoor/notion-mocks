@@ -136,15 +136,11 @@
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">Enter your domain</h2>
                         <p class="text-gray-600 mb-6 font-medium">Enter the domain you'd like to use for your brand links.</p>
                         
-                        <div class="relative mb-6">
+                        <div class="relative mb-8">
                             <input type="text" id="domainInput" placeholder="example.com"
                                 class="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg focus:border-black outline-none transition-all text-lg font-medium">
-                            <button onclick="checkAvailability()"
-                                class="mt-4 w-full py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all flex items-center justify-center gap-2">
-                                <span id="checkBtnText">Check Domain</span>
-                                <div id="checkSpinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                            </button>
                         </div>
+
 
                         <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
                             <p class="text-sm text-gray-600 leading-relaxed">
@@ -292,20 +288,20 @@
             const input = document.getElementById('domainInput').value;
             if (!input) return;
 
-            const btnText = document.getElementById('checkBtnText');
-            const spinner = document.getElementById('checkSpinner');
+            const nextBtn = document.getElementById('nextBtn');
+            const originalText = nextBtn.innerText;
             
             const initialView = document.getElementById('domainEntryInitial');
             const claimView = document.getElementById('claimOwnershipView');
             const successView = document.getElementById('domainSuccessView');
-            const nextBtn = document.getElementById('nextBtn');
 
-            btnText.innerText = 'Checking...';
-            spinner.classList.remove('hidden');
+            nextBtn.innerText = 'Checking...';
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
             setTimeout(() => {
-                btnText.innerText = 'Check Domain';
-                spinner.classList.add('hidden');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
 
                 const isTaken = input.toLowerCase().includes('google') || input.toLowerCase().includes('taken');
 
@@ -315,24 +311,30 @@
                     document.getElementById('displayDomain').innerText = input;
                     document.getElementById('txtPath').innerText = `_vercel.${input}`;
                     nextBtn.innerText = "Verify & Claim";
-                    nextBtn.classList.remove('hidden');
                 } else {
-
-
                     initialView.classList.add('hidden');
                     successView.classList.remove('hidden');
                     nextBtn.innerText = "Next: DNS Setup";
-                    nextBtn.classList.remove('hidden');
                 }
             }, 1200);
         }
+
 
 
         let currentStep = 1;
         const totalSteps = 4;
 
         function changeStep(delta) {
+            if (currentStep === 2 && delta === 1) {
+                const initialView = document.getElementById('domainEntryInitial');
+                if (initialView && !initialView.classList.contains('hidden')) {
+                    checkAvailability();
+                    return;
+                }
+            }
+
             if (currentStep === 2 && delta === -1) {
+
                 const claimView = document.getElementById('claimOwnershipView');
                 const successView = document.getElementById('domainSuccessView');
                 const initialView = document.getElementById('domainEntryInitial');
@@ -369,13 +371,20 @@
             nextBtn.classList.toggle('hidden', currentStep === 1 || currentStep === 4);
 
             if (currentStep === 2) {
+                const initialView = document.getElementById('domainEntryInitial');
                 const claimView = document.getElementById('claimOwnershipView');
-                if (claimView && !claimView.classList.contains('hidden')) {
+                const successView = document.getElementById('domainSuccessView');
+
+                if (!initialView.classList.contains('hidden')) {
+                    nextBtn.innerText = "Continue";
+                    nextBtn.classList.remove('hidden');
+                } else if (!claimView.classList.contains('hidden')) {
                     nextBtn.innerText = "Verify & Claim";
-                } else {
+                } else if (!successView.classList.contains('hidden')) {
                     nextBtn.innerText = "Next: DNS Setup";
                 }
             }
+
             else if (currentStep === 3) nextBtn.innerText = "Verify Connection";
 
 
