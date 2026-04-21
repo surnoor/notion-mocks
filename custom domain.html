@@ -214,49 +214,36 @@
 
                 <!-- STEP 3: DNS SETTINGS -->
                 <div id="step-3" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">Update DNS Settings</h3>
-                    <p class="text-sm text-gray-500 mb-6">Log in to your domain provider (GoDaddy, Namecheap, etc.) and
-                        add these records.</p>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Update DNS Settings</h2>
+                    <p class="text-gray-600 mb-6 font-medium leading-relaxed">Log in to your domain provider (GoDaddy, Namecheap, etc.) and add these records.</p>
 
-                    <div class="space-y-4">
-                        <div
-                            class="p-4 bg-gray-50 rounded-2xl border-2 border-gray-100 flex items-center justify-between">
-                            <div>
-                                <span
-                                    class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Record
-                                    Type</span>
-                                <span class="text-sm font-mono font-bold text-gray-900">CNAME</span>
-                            </div>
-                            <div class="text-right">
-                                <span
-                                    class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Host</span>
-                                <span class="text-sm font-mono font-bold text-gray-900">links</span>
-                            </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden bg-white mb-6">
+                        <div class="grid grid-cols-12 px-4 py-2 border-b border-gray-100 bg-gray-50/50">
+                            <div class="col-span-2 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Type</div>
+                            <div class="col-span-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Name</div>
+                            <div class="col-span-6 text-[11px] font-bold text-gray-500 uppercase tracking-wider">Value</div>
                         </div>
-
-                        <div
-                            class="p-4 bg-white rounded-2xl border-2 border-blue-100 shadow-sm flex items-center justify-between">
-                            <div>
-                                <span
-                                    class="text-[10px] font-black text-blue-400 uppercase tracking-widest block mb-1">Value
-                                    / Points To</span>
-                                <span class="text-sm font-mono font-bold text-blue-900">ingress.linktree.io</span>
+                        <div class="grid grid-cols-12 px-4 py-3 items-center text-sm border-b border-gray-50">
+                            <div class="col-span-2 font-mono text-gray-900 border-r border-gray-100 h-full flex items-center">CNAME</div>
+                            <div class="col-span-4 flex items-center justify-between px-3 gap-2 border-r border-gray-100 h-full">
+                                <span class="font-mono text-gray-900">links</span>
+                                <button class="text-gray-400 hover:text-gray-600"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
                             </div>
-                            <button
-                                class="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold uppercase hover:bg-blue-600 hover:text-white transition-all">Copy</button>
+                            <div class="col-span-6 flex items-center justify-between pl-3 h-full">
+                                <span class="font-mono text-gray-900 truncate">ingress.linktree.io</span>
+                                <button class="text-gray-400 hover:text-gray-600 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
+                            </div>
                         </div>
                     </div>
 
-                    <div
-                        class="mt-8 p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 transition-all hover:bg-white">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
-                            <p class="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Next Step</p>
+                    <div class="p-4 bg-indigo-50 border border-indigo-100 rounded-lg flex gap-3">
+                        <div class="p-1 bg-indigo-100 rounded text-indigo-600 h-fit">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
-                        <p class="text-xs text-indigo-900 leading-relaxed italic">Once you've added the records, click
-                            "Verify Connection" below to finalize the setup.</p>
+                        <p class="text-[13px] text-indigo-900 leading-relaxed italic">Once you've added the records, click <b>"Verify Connection"</b> below to finalize the setup.</p>
                     </div>
                 </div>
+
 
                 <!-- STEP 4: VERIFICATION -->
                 <div id="step-4" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
