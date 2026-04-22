@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Move to Group - SkyViewLinks</title>
+    <title>Bulk Clone - SkyViewLinks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -54,13 +54,18 @@
         .modal {
             background: var(--surface-color);
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
             border-radius: 24px;
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
             animation: modalAppear 0.3s ease-out;
+            transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.step-2-active {
+            max-width: 1000px;
         }
 
         @keyframes modalAppear {
@@ -109,6 +114,148 @@
             width: 24px;
             height: 24px;
         }
+
+        /* Toolkit & Bulk Clone Styles */
+        .step-2-content {
+            display: none;
+            padding: 0 32px 32px;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .toolkit {
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .toolkit-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .input-mini {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 100%;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .input-mini:focus { border-color: var(--accent-primary); }
+
+        .style-select {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-gen {
+            grid-column: span 2;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .btn-gen:hover { background: var(--accent-hover); }
+
+        .slugs-container { position: relative; flex: 1; min-height: 240px; }
+
+        .slugs-textarea {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            color: var(--text-primary);
+            font-family: 'Inter', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+
+        .slugs-textarea:focus { border-color: var(--accent-primary); }
+
+        .slug-count {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            background: rgba(99, 71, 209, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .field-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 6px; display: block; font-weight: 700; }
+
+        .step-hidden { display: none !important; }
+
+        .info-card {
+            background: rgba(99, 71, 209, 0.08);
+            border: 1px solid rgba(99, 71, 209, 0.15);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
 
         .header-text h2 {
             font-size: 20px;
@@ -347,25 +494,25 @@
             </button>
 
             <div class="modal-header">
-                <div class="icon-container">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                        <path d="M12 11v6"></path>
-                        <path d="M9 14h6"></path>
+                <div class="icon-container" id="modal-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
                 </div>
                 <div class="header-text">
-                    <h2>Move to Group</h2>
-                    <p>Move the following deeplink to a different group:</p>
+                    <h2 id="modal-title">Bulk Clone</h2>
+                    <p id="modal-desc">Start by creating a group for your cloned deeplinks:</p>
                 </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="step-1-content">
                 <div class="input-group">
                     <div class="url-box" id="deeplink-url">
                         https://staging.myskyview.link/3333
                     </div>
                 </div>
+
 
                 <div class="input-group">
                     <label class="label">Target group</label>
@@ -394,9 +541,62 @@
                 </div>
             </div>
 
+            <!-- Step 2: Bulk Clone Functionality -->
+            <div class="step-2-content" id="step-2-content">
+                <div class="modal-column">
+                    <div class="section-label">Source Deeplink</div>
+                    <div class="url-box" style="margin-bottom: 24px; color: var(--accent-primary);">https://staging.myskyview.link/3333</div>
+
+                    <div class="toolkit">
+                        <div class="toolkit-header">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4 4 4-4 4-4-4Z"/><path d="m2 14 4-4 4 4-4 4-4-4Z"/><path d="m7 21 4-4 4 4-4 4-4-4Z"/><path d="m7 7 4-4 4 4-4 4-4-4Z"/></svg>
+                            Smart Generator Tool
+                        </div>
+                        <div class="grid-3">
+                            <div>
+                                <span class="field-label">BASE SLUG</span>
+                                <input type="text" id="gen-prefix" class="input-mini" placeholder="e.g. flash-sale">
+                            </div>
+                            <div>
+                                <span class="field-label">PATTERN</span>
+                                <select id="gen-style" class="style-select">
+                                    <option value="num">Sequential (01, 02...)</option>
+                                    <option value="rand">Random Alpha</option>
+                                    <option value="mix">Hybrid Mix</option>
+                                </select>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <span class="field-label">TOTAL COUNT</span>
+                                <input type="number" id="gen-count" class="input-mini" value="50" min="1" max="1000">
+                            </div>
+                            <button class="btn-gen" onclick="generateSlugs()">Auto-Generate & Fill Slugs</button>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <p style="font-size: 11px; opacity: 0.7;">Example: <b>myskyview.link/[slug]</b>. Spaces converted to dashes.</p>
+                    </div>
+                </div>
+
+                <div class="modal-column">
+                    <div class="section-label">
+                        Target Slugs
+                    </div>
+                    <div class="slugs-container">
+                        <textarea id="slug-input" class="slugs-textarea" 
+                            placeholder="Enter one slug per line..." 
+                            oninput="updateCounter()"></textarea>
+                        <span id="counter" class="slug-count">0 READY</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-footer">
-                <button class="btn btn-secondary">Cancel</button>
-                <button class="btn btn-primary">Move</button>
+                <button class="btn btn-secondary" onclick="prevStep()" id="back-btn" style="display: none;">Back</button>
+                <div style="flex: 1;"></div>
+                <button class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                <button class="btn btn-primary" id="main-action-btn" onclick="nextStep()">Continue</button>
             </div>
         </div>
     </div>
@@ -416,6 +616,8 @@
         let currentParentId = null;
         let selectedFolderId = null;
 
+        let currentStep = 1;
+
         function renderFolders() {
             const list = document.getElementById('folder-list');
             const breadcrumbs = document.getElementById('folder-breadcrumbs');
@@ -426,11 +628,13 @@
                 const parent = folders.find(f => f.id === currentParentId);
                 bcHtml += ` <span class="chevron-right">/</span> <span class="path-crumb">${parent.name}</span>`;
             }
-            breadcrumbs.innerHTML = bcHtml;
+            if (breadcrumbs) breadcrumbs.innerHTML = bcHtml;
 
             // Render List
             const filteredFolders = folders.filter(f => f.parentId === currentParentId);
             
+            if (!list) return;
+
             if (filteredFolders.length === 0) {
                 list.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-secondary); font-size: 13px;">No sub-groups found.</div>`;
             } else {
@@ -450,12 +654,80 @@
             }
         }
 
+        function nextStep() {
+            if (currentStep === 1) {
+                currentStep = 2;
+                document.getElementById('step-1-content').classList.add('step-hidden');
+                document.getElementById('step-2-content').style.display = 'grid';
+                document.querySelector('.modal').classList.add('step-2-active');
+                document.getElementById('modal-title').innerText = 'Bulk Clone Slugs';
+                document.getElementById('modal-desc').innerText = 'Generate or enter unique slugs for your clones.';
+                document.getElementById('main-action-btn').innerText = 'Clone 0 Links';
+                document.getElementById('back-btn').style.display = 'block';
+                document.getElementById('cancel-btn').style.display = 'none';
+                updateCounter();
+            } else {
+                // Handle final cloning action
+                alert('Cloning initiated!');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep === 2) {
+                currentStep = 1;
+                document.getElementById('step-1-content').classList.remove('step-hidden');
+                document.getElementById('step-2-content').style.display = 'none';
+                document.querySelector('.modal').classList.remove('step-2-active');
+                document.getElementById('modal-title').innerText = 'Bulk Clone';
+                document.getElementById('modal-desc').innerText = 'Start by creating a group for your cloned deeplinks:';
+                document.getElementById('main-action-btn').innerText = 'Continue';
+                document.getElementById('back-btn').style.display = 'none';
+                document.getElementById('cancel-btn').style.display = 'block';
+            }
+        }
+
+        function updateCounter() {
+            const textarea = document.getElementById('slug-input');
+            if (!textarea) return;
+            const text = textarea.value;
+            const slugs = text.split('\n').filter(s => s.trim().length > 0);
+            const count = slugs.length;
+            document.getElementById('counter').innerText = `${count} READY`;
+            document.getElementById('main-action-btn').innerText = `Clone ${count} Links`;
+        }
+
+        function generateSlugs() {
+            const prefix = document.getElementById('gen-prefix').value.trim() || 'link';
+            const count = parseInt(document.getElementById('gen-count').value) || 10;
+            const style = document.getElementById('gen-style').value;
+            const textarea = document.getElementById('slug-input');
+            
+            let generated = [];
+            
+            for (let i = 1; i <= count; i++) {
+                let slug = '';
+                if (style === 'num') {
+                    slug = `${prefix}-${i.toString().padStart(2, '0')}`;
+                } else if (style === 'rand') {
+                    slug = `${prefix}-${Math.random().toString(36).substring(2, 6)}`;
+                } else {
+                    slug = `${prefix}-${i}-${Math.random().toString(36).substring(2, 4)}`;
+                }
+                generated.push(slug);
+            }
+            
+            textarea.value = generated.join('\n');
+            updateCounter();
+        }
+
         function navigateTo(id) {
             currentParentId = id;
             selectedFolderId = null; 
             renderFolders();
-            toggleNewFolderInput(false);
+            const toggleFn = typeof toggleNewFolderInput === 'function' ? toggleNewFolderInput : null;
+            if (toggleFn) toggleFn(false);
         }
+
 
         function selectFolder(id) {
             selectedFolderId = id;
